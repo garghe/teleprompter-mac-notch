@@ -8,14 +8,14 @@ jobs:
   build:
     runs-on: macos-15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Swift version
         run: swift --version
       - name: Build app
         run: ./scripts/build-app.sh
       - name: Zip app
         run: cd build && ditto -c -k --keepParent NotchPrompter.app NotchPrompter.zip
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: NotchPrompter
           path: build/NotchPrompter.zip
