@@ -43,11 +43,18 @@ final class Settings: ObservableObject {
         ])
         fontSize = defaults.double(forKey: "fontSize")
         panelWidth = defaults.double(forKey: "panelWidth")
-        visibleLines = defaults.integer(forKey: "visibleLines")
+        visibleLines = Self.clampLines(defaults.integer(forKey: "visibleLines"))
         textColor = TextColorOption(rawValue: defaults.string(forKey: "textColor") ?? "") ?? .white
         dimOtherSentences = defaults.bool(forKey: "dimOthers")
         countdownEnabled = defaults.bool(forKey: "countdown")
         hideFromCapture = defaults.bool(forKey: "hideFromCapture")
+    }
+
+    /// The panel can be resized between these many lines of text.
+    static let lineRange = 3...20
+
+    static func clampLines(_ lines: Int) -> Int {
+        min(max(lines, lineRange.lowerBound), lineRange.upperBound)
     }
 
     var font: NSFont { .systemFont(ofSize: CGFloat(fontSize), weight: .medium) }

@@ -1,4 +1,5 @@
 import SwiftUI
+import AppKit
 import UniformTypeIdentifiers
 
 struct PanelView: View {
@@ -9,6 +10,7 @@ struct PanelView: View {
     let hidePanel: () -> Void
 
     @FocusState private var searchFocused: Bool
+    @State private var dragStartLines: Int?
 
     private var showControls: Bool { prompter.isHovering || prompter.isSearchVisible }
 
@@ -31,6 +33,7 @@ struct PanelView: View {
                 overlays
             }
             .frame(maxHeight: .infinity)
+            .overlay(alignment: .bottom) { resizeHandle }
             if prompter.isSearchVisible {
                 searchBar
                     .frame(height: PanelController.searchBarHeight)
@@ -81,6 +84,35 @@ struct PanelView: View {
         }
         .opacity(showControls ? 1 : 0)
         .animation(.easeInOut(duration: 0.15), value: showControls)
+    }
+
+    /// Grip at the bottom edge: drag down/up to show more/fewer lines.
+    /// Snaps to whole lines, between Settings.lineRange (3–20).
+    private var resizeHandle: some View {
+        Capsule()
+            .fill(Color.white.opacity(dragStartLines != nil ? 0.7 : 0.35))
+            .frame(width: 44, height: 4)
+            .frame(maxWidth: 120, minHeight: 12)
+            .contentShape(Rectangle())
+            .opacity(showControls || dragStartLines != nil ? 1 : 0)
+            .onHover { inside in
+                if inside { NSCursor.resizeUpDown.push() } else { NSCursor.pop() }
+            }
+            .gesture(
+                DragGesture(minimumDistance: 1, coordinateSpace: .global)
+                    .onChanged { value in
+                        let start = dragStartLines ?? settings.visibleLines
+                        if dragStartLines == nil { dragStartLines = start }
+                        let delta = Int((value.translation.height / settings.lineHeight).rounded())
+                        let lines = Settings.clampLines(start + delta)
+                        if lines != settings.visibleLines { settings.visibleLines = lines }
+                    }
+                    .onEnded { _ in
+                        dragStartLines = nil
+                        prompter.showToast("\(settings.visibleLines) lines")
+                    }
+            )
+            .help("Drag to resize (\(Settings.lineRange.lowerBound)–\(Settings.lineRange.upperBound) lines)")
     }
 
     @ViewBuilder

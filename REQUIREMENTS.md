@@ -12,7 +12,7 @@ A personal macOS teleprompter that sits in the MacBook notch, right under the ca
 ## 1. Notch display
 
 - Black, pill-shaped panel attached to the notch, so it looks like an extension of it.
-- Shows 2–3 lines. The current line is highlighted and the other lines are dimmed.
+- Shows 3 lines by default. **Vertically resizable** by dragging the handle at the bottom edge, from 3 to 20 lines (snaps to whole lines, capped at ~85% of the screen height). The current line is highlighted and the other lines are dimmed.
 - **Hidden from screen sharing, recordings and screenshots** (Zoom, Teams, OBS, QuickTime).
 - A **"Hide from screen capture"** switch (in Settings and the menu bar, on by default) turns this off so you can take a screenshot. A red dot on the panel shows while it's off.
 - Fallback: if no notch is detected (for example on an external monitor), it shows as the same panel at the top centre of the screen.
@@ -72,7 +72,7 @@ A personal macOS teleprompter that sits in the MacBook notch, right under the ca
 - Use the same panel for reference documents (CV, notes, job description), not only scripts.
 - Load `.txt`, `.md`, `.rtf`, `.docx`, `.doc`, `.odt`, `.pdf` and `.html`. They're converted to plain text.
 - Read by moving manually (trackpad, sentence up/down) with no autoscroll needed. Find content with search.
-- Visible lines can go up to 10, to see more context.
+- Visible lines can go up to 20, to see more context.
 - The last document and reading position are restored on restart.
 - Hidden from screen sharing, as above.
 

@@ -10,7 +10,10 @@ struct SettingsView: View {
                 Slider(value: $settings.fontSize, in: 14...48, step: 1) {
                     Text("Font size: \(Int(settings.fontSize))")
                 }
-                Stepper("Visible lines: \(settings.visibleLines)", value: $settings.visibleLines, in: 1...10)
+                Stepper("Visible lines: \(settings.visibleLines)", value: $settings.visibleLines, in: Settings.lineRange)
+                Text("You can also drag the handle at the bottom of the panel.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
                 Picker("Colour", selection: $settings.textColor) {
                     ForEach(TextColorOption.allCases) { option in
                         Text(option.label).tag(option)

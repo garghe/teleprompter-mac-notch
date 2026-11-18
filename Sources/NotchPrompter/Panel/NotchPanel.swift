@@ -178,7 +178,9 @@ final class PanelController {
 
         let minWidth = info.notchWidth + 2 * 170
         let width = min(max(CGFloat(settings.panelWidth), minWidth), info.screen.frame.width)
-        let textHeight = CGFloat(settings.visibleLines) * settings.lineHeight + 16
+        // Never taller than ~85% of the screen (e.g. 20 lines at a big font).
+        let maxTextHeight = info.screen.frame.height * 0.85 - info.topHeight
+        let textHeight = min(CGFloat(Settings.clampLines(settings.visibleLines)) * settings.lineHeight + 16, maxTextHeight)
         let height = info.topHeight + textHeight + (prompter.isSearchVisible ? Self.searchBarHeight : 0)
         let screenFrame = info.screen.frame
         let frame = NSRect(x: screenFrame.midX - width / 2, y: screenFrame.maxY - height, width: width, height: height)

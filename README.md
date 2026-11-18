@@ -26,6 +26,7 @@ To work on the code, open `Package.swift` in Xcode and press Run.
 ## Use
 
 - The panel appears in the notch. Hover over it to see the controls.
+- To resize it, drag the small handle at the bottom edge (3–20 lines).
 - A menu-bar icon (☰) has every action, plus Settings.
 - To load something, drop a file on the panel, press ⌃⌥O, or write or paste a script with ⌃⌥E.
 - Supported files: `.txt`, `.md`, `.rtf`, `.docx`, `.doc`, `.odt`, `.pdf`, `.html`.
