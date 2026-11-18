@@ -66,7 +66,16 @@ A personal macOS teleprompter that sits in the MacBook notch, right under the ca
 - Font size, panel width, number of visible lines, text colour.
 - Countdown on or off.
 
-## 10. Design for the future (not in MVP)
+## 10. Reference / interview mode
+
+- Use the same panel for reference documents (CV, notes, job description), not only scripts.
+- Load `.txt`, `.md`, `.rtf`, `.docx`, `.doc`, `.odt`, `.pdf` and `.html`. They're converted to plain text.
+- Read by moving manually (trackpad, sentence up/down) with no autoscroll needed. Find content with search.
+- Visible lines can go up to 10, to see more context.
+- The last document and reading position are restored on restart.
+- Hidden from screen sharing, as above.
+
+## 11. Design for the future (not in MVP)
 
 - **Voice-follow scrolling** (speech recognition moves the text as you speak). Build the code so the scroll position is driven by an interchangeable "scroll driver": timer/WPM now, voice later.
 - The script is modelled as a list of sentences/words with indexes, so voice matching and search can share it.
