@@ -12,7 +12,7 @@ mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 cp "$BIN_DIR/NotchPrompter" "$APP/Contents/MacOS/NotchPrompter"
 cp Support/Info.plist "$APP/Contents/Info.plist"
 
-# Ad-hoc signature so macOS will run it locally.
-codesign --force --sign - "$APP"
+# Ad-hoc signature with the hardened runtime (blocks code injection).
+codesign --force --options runtime --sign - "$APP"
 
 echo "Built $APP"

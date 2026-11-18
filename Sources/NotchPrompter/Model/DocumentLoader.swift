@@ -77,8 +77,11 @@ enum Storage {
     private static var file: URL { folder.appendingPathComponent("document.txt") }
 
     static func save(text: String, name: String) {
-        try? FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+        // Owner-only permissions: documents may hold private notes.
+        try? FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true,
+                                                 attributes: [.posixPermissions: 0o700])
         try? text.write(to: file, atomically: true, encoding: .utf8)
+        try? FileManager.default.setAttributes([.posixPermissions: 0o600], ofItemAtPath: file.path)
         UserDefaults.standard.set(name, forKey: "documentName")
     }
 
