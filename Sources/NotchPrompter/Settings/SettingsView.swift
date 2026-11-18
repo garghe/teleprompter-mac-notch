@@ -22,7 +22,8 @@ struct SettingsView: View {
                 Slider(value: $settings.panelWidth, in: 400...1200, step: 10) {
                     Text("Width: \(Int(settings.panelWidth))")
                 }
-                Text("The panel is hidden from screen sharing and recordings. Check it once with your own video tool before an important call.")
+                Toggle("Hide from screen capture", isOn: $settings.hideFromCapture)
+                Text("When on, the panel doesn't appear in screenshots, recordings or screen sharing. Turn it off to take a screenshot (a red dot shows while it's off).")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }

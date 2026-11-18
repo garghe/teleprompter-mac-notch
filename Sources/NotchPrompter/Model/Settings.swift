@@ -27,6 +27,8 @@ final class Settings: ObservableObject {
     @Published var textColor: TextColorOption { didSet { defaults.set(textColor.rawValue, forKey: "textColor") } }
     @Published var dimOtherSentences: Bool { didSet { defaults.set(dimOtherSentences, forKey: "dimOthers") } }
     @Published var countdownEnabled: Bool { didSet { defaults.set(countdownEnabled, forKey: "countdown") } }
+    /// Keeps the panel out of screenshots, recordings and screen sharing.
+    @Published var hideFromCapture: Bool { didSet { defaults.set(hideFromCapture, forKey: "hideFromCapture") } }
 
     init() {
         defaults.register(defaults: [
@@ -37,6 +39,7 @@ final class Settings: ObservableObject {
             "dimOthers": true,
             "countdown": true,
             "wpm": 140.0,
+            "hideFromCapture": true,
         ])
         fontSize = defaults.double(forKey: "fontSize")
         panelWidth = defaults.double(forKey: "panelWidth")
@@ -44,6 +47,7 @@ final class Settings: ObservableObject {
         textColor = TextColorOption(rawValue: defaults.string(forKey: "textColor") ?? "") ?? .white
         dimOtherSentences = defaults.bool(forKey: "dimOthers")
         countdownEnabled = defaults.bool(forKey: "countdown")
+        hideFromCapture = defaults.bool(forKey: "hideFromCapture")
     }
 
     var font: NSFont { .systemFont(ofSize: CGFloat(fontSize), weight: .medium) }

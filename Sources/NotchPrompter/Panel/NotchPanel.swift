@@ -21,7 +21,8 @@ final class NotchPanel: NSPanel {
         hidesOnDeactivate = false
         isMovable = false
         becomesKeyOnlyIfNeeded = true
-        // Keep the panel out of screen sharing and recordings.
+        // Out of screen sharing, recordings and screenshots by default;
+        // PanelController applies the user's "Hide from screen capture" setting.
         sharingType = .none
     }
 
@@ -137,6 +138,7 @@ final class PanelController {
             }
             .store(in: &cancellables)
 
+        applyCaptureSetting()
         relayout(realign: false)
     }
 
@@ -158,7 +160,12 @@ final class PanelController {
         if isVisible { hide() } else { show() }
     }
 
+    private func applyCaptureSetting() {
+        panel.sharingType = settings.hideFromCapture ? .none : .readOnly
+    }
+
     private func settingsChanged() {
+        applyCaptureSetting()
         relayout(realign: false)
         prompter.applyStyle()
         DispatchQueue.main.async { self.prompter.realign() }

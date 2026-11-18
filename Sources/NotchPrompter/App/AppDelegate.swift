@@ -2,11 +2,12 @@ import AppKit
 import SwiftUI
 
 @MainActor
-final class AppDelegate: NSObject, NSApplicationDelegate {
+final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     private let settings = Settings()
     private lazy var prompter = Prompter(settings: settings)
     private var panel: PanelController!
     private var statusItem: NSStatusItem!
+    private var captureMenuItem: NSMenuItem!
     private var editorWindow: NSWindow?
     private var settingsWindow: NSWindow?
 
@@ -38,10 +39,22 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         menu.addItem(menuItem("Open Document…  (⌃⌥O)", #selector(openDocument)))
         menu.addItem(menuItem("Edit Script…  (⌃⌥E)", #selector(openEditor)))
         menu.addItem(.separator())
+        captureMenuItem = menuItem("Hide from Screen Capture", #selector(toggleHideFromCapture))
+        menu.addItem(captureMenuItem)
         menu.addItem(menuItem("Settings & Shortcuts…", #selector(openSettings)))
         menu.addItem(.separator())
         menu.addItem(menuItem("Quit Notch Prompter", #selector(quit)))
+        menu.delegate = self
         statusItem.menu = menu
+    }
+
+    func menuWillOpen(_ menu: NSMenu) {
+        captureMenuItem.state = settings.hideFromCapture ? .on : .off
+    }
+
+    @objc private func toggleHideFromCapture() {
+        settings.hideFromCapture.toggle()
+        prompter.showToast(settings.hideFromCapture ? "Hidden from screen capture" : "Visible in screenshots")
     }
 
     private func menuItem(_ title: String, _ action: Selector) -> NSMenuItem {

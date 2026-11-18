@@ -16,6 +16,16 @@ struct PanelView: View {
         VStack(spacing: 0) {
             topBar
                 .frame(height: layout.topHeight)
+                .overlay(alignment: .leading) {
+                    if !settings.hideFromCapture {
+                        // Always-visible reminder that the panel can be captured.
+                        Circle()
+                            .fill(Color.red)
+                            .frame(width: 7, height: 7)
+                            .padding(.leading, 12)
+                            .help("Visible in screenshots and screen sharing")
+                    }
+                }
             ZStack {
                 PrompterTextRepresentable(controller: prompter.textController)
                 overlays
