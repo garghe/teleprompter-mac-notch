@@ -13,7 +13,8 @@ A personal macOS teleprompter that sits in the MacBook notch, right under the ca
 
 - Black, pill-shaped panel attached to the notch, so it looks like an extension of it.
 - Shows 2–3 lines. The current line is highlighted and the other lines are dimmed.
-- **Hidden from screen sharing and recording** (Zoom, Teams, OBS, QuickTime).
+- **Hidden from screen sharing, recordings and screenshots** (Zoom, Teams, OBS, QuickTime).
+- A **"Hide from screen capture"** switch (in Settings and the menu bar, on by default) turns this off so you can take a screenshot. A red dot on the panel shows while it's off.
 - Fallback: if no notch is detected (for example on an external monitor), it shows as the same panel at the top centre of the screen.
 
 ## 2. Always on top

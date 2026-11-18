@@ -46,5 +46,5 @@ To work on the code, open `Package.swift` in Xcode and press Run.
 
 ## Notes
 
-- **Screen sharing:** the panel asks macOS to keep it out of screen captures. Most apps honour this, but test it once with your own Teams or Zoom before an important call.
+- **Screen sharing and screenshots:** by default the panel is kept out of screen sharing, recordings and screenshots. To take a screenshot, turn off **Hide from Screen Capture** in the menu-bar menu, then turn it back on. A red dot shows on the panel while it's off. Test it once with your own Teams or Zoom before an important call.
 - **Code layout:** `Sources/NotchPrompter/Scrolling/ScrollDriver.swift` is where a future voice-follow mode will plug in.
